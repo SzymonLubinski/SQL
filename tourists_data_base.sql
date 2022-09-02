@@ -2,7 +2,7 @@
 create table UE_COUNTRIES
 (
     id_country 		number primary key,
-    TIME 			varchar2(7) not null,
+    TIME 		varchar2(7) not null,
     Belgium 		number,
     Bulgaria 		number,
     Czechia 		number,
@@ -10,36 +10,36 @@ create table UE_COUNTRIES
     Germany 		number,
     Estonia 		number,
     Ireland 		number,
-    Greece 			number,
-    Spain 			number,
-    France 			number,
+    Greece 		number,
+    Spain 		number,
+    France 		number,
     Croatia 		number,
-    Italy 			number,
-    Cyprus 			number,
-    Latvia 			number,
+    Italy 		number,
+    Cyprus 		number,
+    Latvia 		number,
     Lithuania 		number,
     Luxembourg 		number,
     Hungary 		number,
-    Malta 			number,
+    Malta 		number,
     Netherlands 	number,
     Austria 		number,
-    Poland 			number,
+    Poland 		number,
     Portugal 		number,
     Romania 		number,
     Slovenia 		number,
     Slovakia 		number,
     Finland 		number,
-    Sweden 			number,
+    Sweden 		number,
     Iceland 		number,
-    Liechtenstein   number,
-    Norway 			number,
+    Liechtenstein   	number,
+    Norway 		number,
     Switzerland 	number,
-    United_Kingdom  number,
+    United_Kingdom  	number,
     Montenegro 		number,
-    North_Macedonia number,
+    North_Macedonia 	number,
     Albania 		number,
-    Serbia 			number,
-    Turkey 			number
+    Serbia 		number,
+    Turkey 		number
 );
 
 --Wprowadzenie ograniczeń do tabeli UE_COUNTRIES.
@@ -53,43 +53,43 @@ add check
     Germany 		< 8000000000 and
     Estonia 		< 8000000000 and
     Ireland 		< 8000000000 and
-    Greece 			< 8000000000 and
-    Spain 			< 8000000000 and
-    France 			< 8000000000 and
+    Greece 		< 8000000000 and
+    Spain 		< 8000000000 and
+    France 		< 8000000000 and
     Croatia 		< 8000000000 and
-    Italy 			< 8000000000 and
-    Cyprus 			< 8000000000 and
-    Latvia 			< 8000000000 and
+    Italy 		< 8000000000 and
+    Cyprus 		< 8000000000 and
+    Latvia 		< 8000000000 and
     Lithuania 		< 8000000000 and
     Luxembourg 		< 8000000000 and
     Hungary 		< 8000000000 and
-    Malta 			< 8000000000 and
+    Malta 		< 8000000000 and
     Netherlands 	< 8000000000 and
     Austria 		< 8000000000 and
-    Poland 			< 8000000000 and
+    Poland 		< 8000000000 and
     Portugal 		< 8000000000 and
     Romania 		< 8000000000 and
     Slovenia 		< 8000000000 and
     Slovakia 		< 8000000000 and
     Finland 		< 8000000000 and
-    Sweden 			< 8000000000 and
+    Sweden 		< 8000000000 and
     Iceland 		< 8000000000 and
-    Liechtenstein   < 8000000000 and
-    Norway 			< 8000000000 and
+    Liechtenstein   	< 8000000000 and
+    Norway 		< 8000000000 and
     Switzerland 	< 8000000000 and
-    United_Kingdom  < 8000000000 and
+    United_Kingdom  	< 8000000000 and
     Montenegro 		< 8000000000 and
-    North_Macedonia < 8000000000 and
+    North_Macedonia 	< 8000000000 and
     Albania 		< 8000000000 and
-    Serbia 			< 8000000000 and
-    Turkey 			< 8000000000
+    Serbia 		< 8000000000 and
+    Turkey 		< 8000000000
 );
 
 --Tworzenie tabeli, która będzie zawierać informacje o aktualizacjach w tabeli UE_COUNTRIES.
 create table update_data
 (
 	id_time 	number primary key,
-	update_date date,
+	update_date 	date,
 	new_data 	varchar2(2000)
 );
 
@@ -129,12 +129,12 @@ select
 	count(Finland 			) +
 	count(Sweden 			) +
 	count(Iceland 			) +
-	count(Liechtenstein   	) +
+	count(Liechtenstein   		) +
 	count(Norway 			) +
 	count(Switzerland 		) +
-	count(United_Kingdom  	) +
+	count(United_Kingdom  		) +
 	count(Montenegro 		) +
-	count(North_Macedonia 	) +
+	count(North_Macedonia 		) +
 	count(Albania 			) +
 	count(Serbia 			) +
 	count(Turkey 			)
@@ -148,13 +148,13 @@ FETCH c1 INTO sum_of_the_data;
 INSERT INTO update_data
 (
 	id_time 	,	
-	update_date ,
+	update_date 	,
 	new_data 	
 )
 VALUES
 (
 	seq_update_data.nextval	,
-	SYSDATE					,
+	SYSDATE			,
 	sum_of_the_data
 );
 CLOSE c1;
@@ -177,7 +177,7 @@ BEGIN
 		start_date      => SYSTIMESTAMP,
 		repeat_interval => 'freq=minutely; bysecond=0;',
 		end_date        => NULL,
-		comments		=> 'Update every minute'
+		comments	=> 'Update every minute'
 		);
 END;
 /
@@ -191,11 +191,11 @@ END;
 BEGIN
 DBMS_SCHEDULER.create_program
 		(
-		program_name   => 'program_1',
-		program_type   => 'STORED_PROCEDURE',
-		program_action => 'PUD',
-		enabled        => TRUE,
-		comments	   => 'Start procedure PUD'
+		program_name   	=> 'program_1',
+		program_type   	=> 'STORED_PROCEDURE',
+		program_action 	=> 'PUD',
+		enabled        	=> TRUE,
+		comments	=> 'Start procedure PUD'
 		);
 END;
 /
@@ -205,11 +205,11 @@ END;
 BEGIN 
 	DBMS_SCHEDULER.create_job
 		(
-		job_name   		=> 'job_1',
+		job_name   	=> 'job_1',
 		program_name   	=> 'program_1',
 		schedule_name   => 'schedule_1',
 		enabled        	=> TRUE,
-		comments	   	=> 'start verification'
+		comments	=> 'start verification'
 		);
 END;
 /
@@ -222,8 +222,8 @@ END;
 --INTO TABLE UE_COUNTRIES
 --fields terminated by ","
 --(
---	id_country 		,
---    TIME 			,
+--	id_country 	,
+--    TIME 		,
 --    Belgium 		,
 --    Bulgaria 		,
 --    Czechia 		,
@@ -231,35 +231,35 @@ END;
 --    Germany 		,
 --    Estonia 		,
 --    Ireland 		,
---    Greece 			,
---    Spain 			,
---    France 			,
+--    Greece 		,
+--    Spain 		,
+--    France 		,
 --    Croatia 		,
---    Italy 			,
---    Cyprus 			,
---    Latvia 			,
---    Lithuania 		,
---    Luxembourg 		,
+--    Italy 		,
+--    Cyprus 		,
+--    Latvia 		,
+--    Lithuania 	,
+--    Luxembourg 	,
 --    Hungary 		,
---    Malta 			,
+--    Malta 		,
 --    Netherlands 	,
 --    Austria 		,
---    Poland 			,
+--    Poland 		,
 --    Portugal 		,
 --    Romania 		,
 --    Slovenia 		,
 --    Slovakia 		,
 --    Finland 		,
---    Sweden 			,
+--    Sweden 		,
 --    Iceland 		,
---    Liechtenstein   ,
---    Norway 			,
+--    Liechtenstein   	,
+--    Norway 		,
 --    Switzerland 	,
---    United_Kingdom  ,
---    Montenegro 		,
---    North_Macedonia ,
+--    United_Kingdom  	,
+--    Montenegro 	,
+--    North_Macedonia 	,
 --    Albania 		,
---    Serbia 			,
+--    Serbia 		,
 --    Turkey 			
 --)
 
